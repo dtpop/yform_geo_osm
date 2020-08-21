@@ -226,6 +226,7 @@ if ($table) {
             data_running = 0;
             return false;
         }
+        var outtext_error = '<?= \rex_view::error('Id ===id=== Anfrage blockiert oder Netzwerkfehler.') ?>';
         
 //        var address = encodeURIComponent(data[data_counter]["address"]);
         var address = data[data_counter]["address"];
@@ -246,7 +247,9 @@ if ($table) {
                 save_data();
             },
             error: function() {
-                jQuery("#osm_geo_count_"+field).prepend('<?= \rex_view::error('Anfrage blockiert oder Netzwerkfehler.') ?>');                
+                jQuery("#osm_geo_count_"+field).prepend(outtext_error.replace('===id===',data_id+' '+address));
+                data_next = "1";
+                locked = false;                
             }
         });
 
